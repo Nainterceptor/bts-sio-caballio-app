@@ -1,7 +1,7 @@
 {
 	"target": "simulator",
 	"deployType": "development",
-	"deviceFamily": "iphone",
+	"deviceFamily": "ipad",
 	"iosSdkPath": "/Users/nainterceptor/Library/Application Support/Titanium/mobilesdk/osx/3.0.0.GA/iphone",
 	"appGuid": "eb09f026-d6ef-4a6c-b50d-e4c1bde0bada",
 	"tiCoreHash": "6b039db50f01934ab31311c911af38db",
