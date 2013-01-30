@@ -1,0 +1,1 @@
+/Users/nainterceptor/Documents/Titanium/poney-app/Resources/views/poney.js
