@@ -1,0 +1,1 @@
+Ti.UI.setBackgroundColor('#ECE8DD');

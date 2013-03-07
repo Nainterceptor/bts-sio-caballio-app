@@ -1,46 +1,40 @@
-// this sets the background color of the master UIView (when there are no windows/tab groups on it)
-Titanium.UI.setBackgroundColor('#ECE8DD');
-if (Titanium.Platform.osname === 'iphone' || Titanium.Platform.osname === 'ipad') {
-	var os = "iOs";
-}
-else if (Titanium.Platform.osname === 'mobileweb'){
-	var os = "Mobile";
-}
-else {
-	var os = "Android";
-}
+var commonStyle = require('style/common');
 
-
-
-//
-// create base UI tab and root window
-//
-var win1 = Titanium.UI.createWindow({  
-    title:'Poney App',
-    url:'views/poney.js'
+//Windows
+var centresWindow = Ti.UI.createWindow({  
+    title:'Centres',
+    url:'controller/centres.js'
 });
 
-if(os == 'iOs') {
-	var tab1 = Titanium.UI.createTab({
-	   	icon: Titanium.UI.iPhone.SystemIcon.BOOKMARKS, 
-	    title:'Poney',
-	    window:win1
-	});
-} else {
-	var tab1 = Titanium.UI.createTab({
-	    title:'Poney',
-	    window:win1
-	});
-}
+var chevauxWindow = Ti.UI.createWindow({  
+    title:'Chevaux',
+    url:'controller/chevaux.js'
+});
 
+var equipementsWindow = Ti.UI.createWindow({  
+    title:'Chevaux',
+    url:'controller/equipements.js'
+});
 
-// create tab group
-var tabGroup = Titanium.UI.createTabGroup();
+//Tabs
+var centresTab = Titanium.UI.createTab({
+    title:'Centres',
+    window:centresWindow
+});
 
-//
-//  add tabs
-//
-tabGroup.addTab(tab1);
+var chevauxTab = Titanium.UI.createTab({
+    title:'Chevaux',
+    window:chevauxWindow
+});
 
-// open tab group
-tabGroup.open();
+var equipementsTab = Titanium.UI.createTab({
+    title:'Equipements',
+    window:equipementsWindow
+});
+
+//Load Tabs
+var tabs = Titanium.UI.createTabGroup();
+tabs.addTab(centresTab);
+tabs.addTab(chevauxTab);
+tabs.addTab(equipementsTab);
+tabs.open();
