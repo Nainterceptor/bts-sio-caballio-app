@@ -6,7 +6,13 @@ function getCentres() {
     	var data = [];
     	var centres = JSON.parse(xhr.responseText);
 		for(c in centres) {
-			data.push(Ti.UI.createTableViewRow({title: centres[c].nom}));
+			data.push(
+				Ti.UI.createTableViewRow({
+					title: centres[c].nom, 
+					hasChild:true,
+					id: centres[c].id
+				})
+			);
 			table.data = data;
 		}
      }; 
@@ -15,6 +21,15 @@ function getCentres() {
 	};
     xhr.send();
 }
+
+// create table view event listener
+tableview.addEventListener('click', function(e) {
+	if (e.rowData.id) {
+		var centre = require('controller/centre.js');
+		win = new centre();
+		_args.containingTab.open(win,{animated:true});
+	}
+});
 var table = Ti.UI.createTableView();
 getCentres();
 win.add(table);
