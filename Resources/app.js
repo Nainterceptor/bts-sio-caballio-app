@@ -1,4 +1,5 @@
 var commonStyle = require('style/common');
+var ApplicationTabGroup = require('ui/common/ApplicationTabGroup');
 
 //Windows
 var centresWindow = Ti.UI.createWindow({  
