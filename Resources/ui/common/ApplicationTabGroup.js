@@ -3,103 +3,38 @@ var messageWin;
 function ApplicationTabGroup() {
 	//create module instance
 	var self = Ti.UI.createTabGroup(),
-		CentresWindow = require('ui/common/BaseUIWindow'),
+		CentresWindow = require('ui/common/CentresWindow'),
+		ChevauxWindow = require('ui/common/ChevauxWindow'),
+		EquipementsWindow = require('ui/common/EquipementsWindow');
 	
 	//create app tabs
-	var baseUIWin = new BaseUIWindow(L('base_ui_title')),
-		controlsWin = new ControlsWindow(L('controls_win_title')),
-		phoneWin = new PhoneWindow(L('phone_win_title')),
-		platformWin = new PlatformWindow(L('platform_win_title')),
-		mashupsWin = new MashupsWindow(L('mashups_win_title'));
-		//messageWin = new MessageWindow();
+	var centresWin = new CentresWindow('Centres'),
+		chevauxWin = new ChevauxWindow('Chevaux'),
+		equipementsWin = new EquipementsWindow('Equipements');
+
 	
-	var baseUITab = Ti.UI.createTab({
-		title: L('base_ui_title'),
-		icon: '/images/tabs/KS_nav_ui.png',
-		window: baseUIWin
+	var centresTab = Ti.UI.createTab({
+		title: 'Centres',
+		window: centresWin
 	});
-	baseUIWin.containingTab = baseUITab;
-	self.addTab(baseUITab);
+	centresWin.containingTab = centresTab;
+	self.addTab(centresTab);
 	
-	var controlsTab = Ti.UI.createTab({
-		title: L('controls_win_title'),
-		icon: '/images/tabs/KS_nav_views.png',
-		window: controlsWin
+	var chevauxTab = Ti.UI.createTab({
+		title: 'Chevaux',
+		window: chevauxWin
 	});
-	controlsWin.containingTab = controlsTab;
-	self.addTab(controlsTab);
+	chevauxWin.containingTab = chevauxTab;
+	self.addTab(chevauxTab);
 	
-	var phoneTab = Ti.UI.createTab({
-		title:L('phone_win_title'),
-		icon:'/images/tabs/KS_nav_phone.png',
-		window:phoneWin
+	var equipementsTab = Ti.UI.createTab({
+		title: 'Equipements',
+		window:equipementsWin
 	});
-	phoneWin.containingTab = phoneTab;
-	self.addTab(phoneTab);
-	
-	var platformTab = Ti.UI.createTab({
-		title:L('platform_win_title'),
-		icon:'/images/tabs/KS_nav_platform.png',
-		window:platformWin
-	});
-	platformWin.containingTab = platformTab;
-	self.addTab(platformTab);
-	
-	var mashupsTab = Ti.UI.createTab({
-		title:L('mashups_win_title'),
-		icon:'/images/tabs/KS_nav_mashup.png',
-		window:mashupsWin
-	});
-	mashupsWin.containingTab = mashupsTab;
-	self.addTab(mashupsTab);
+	equipementsWin.containingTab = equipementsTab;
+	self.addTab(equipementsTab);
 	
 	self.setActiveTab(1);
-	
-	
-	// Tabgroup events and message window
-	messageWin = Titanium.UI.createWindow({
-		height:30,
-		width:250,
-		bottom:70,
-		borderRadius:10,
-		touchEnabled:false,
-		orientationModes : [
-			Titanium.UI.PORTRAIT,
-			Titanium.UI.UPSIDE_PORTRAIT,
-			Titanium.UI.LANDSCAPE_LEFT,
-			Titanium.UI.LANDSCAPE_RIGHT
-		]
-	});
-	if (Ti.Platform.osname === 'iphone') {
-		messageWin.orientationModes = [Ti.UI.PORTRAIT]
-	}
-	
-	var messageView = Titanium.UI.createView({
-		id:'messageview',
-		height:30,
-		width:250,
-		borderRadius:10,
-		backgroundColor:'#000',
-		opacity:0.7,
-		touchEnabled:false
-	});
-		
-	var messageLabel = Titanium.UI.createLabel({
-		id:'messagelabel',
-		text:'',
-		color:'#fff',
-		width:250,
-		height:'auto',
-		font:{
-			fontFamily:'Helvetica Neue',
-			fontSize:13
-		},
-		textAlign:'center'
-	});
-	messageWin.add(messageView);
-	messageWin.add(messageLabel);
-	
-	
 	self.model = Ti.Platform.model;
 	
 	return self;
