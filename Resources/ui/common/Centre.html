@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<script type ="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		   Ti.App.addEventListener('pageReady',function(centre) {
+		   	    $('#nom').text(centre.nom);
+			    $('#rue').text(centre.adresse);
+			    $('#cp').text(centre.codePostal);
+			    $('#ville').text(centre.ville);
+			    
+			    $('#date').append(centre.date);
+			    $('#dateAjout').append(centre.dateAjout);
+			    $('#gerant').append(centre.gerant_prenom + ' ' + centre.gerant_nom);
+			});
+		</script>
+	</head>
+	<body>
+		<h1 id="adresse">Contact</h1>
+		<p>
+			<span id="nom"></span><br />
+			<span id="rue"></span><br />
+			<span id="cp"></span> <span id="ville"></span>
+		</p>
+		
+		<h1 id="infos">Informations</h1>
+		<p>
+			<span id="date">Date : </span><br />
+			<span id="dateAjout">Ajouté le : </span><br />
+			<span id="gerant">Gérant : </span>
+		</p>
+	</body>
+</html>
