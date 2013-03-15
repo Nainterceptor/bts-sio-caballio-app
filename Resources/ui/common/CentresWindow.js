@@ -25,7 +25,7 @@ function CentresWindow(title) {
 			tableview.data = data;
 	     }; 
 	    xhr.onerror = function() {
-		  alert('Erreur :' + xhr.status);    
+		  alert('Erreur :' + xhr.status);
 		};
 	    xhr.send();		
 	}
