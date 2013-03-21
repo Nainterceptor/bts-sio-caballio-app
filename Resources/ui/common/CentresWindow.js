@@ -8,8 +8,14 @@ function CentresWindow(title) {
     } else {
         backgroundColor:'black'
     }
-
-	var tableview = Ti.UI.createTableView();
+	
+	if (Ti.Platform.name == 'iPhone OS') {
+		var tableview = Ti.UI.createTableView();
+	} else {
+		var tableview = Ti.UI.createTableView({
+			top : 110
+		});
+	}
 	function getData() {
 	    var xhr = Ti.Network.createHTTPClient();
 	    xhr.open("GET","http://poney.spider4all.fr/ws/centres.json");
@@ -64,6 +70,7 @@ function CentresWindow(title) {
 			self.containingTab.open(win,{animated:true});
 		}
 	});
+	
 	// add table view to the window
 	self.add(tableview);	
 	return self;
