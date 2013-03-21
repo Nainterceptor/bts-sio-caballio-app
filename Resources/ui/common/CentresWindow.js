@@ -1,12 +1,13 @@
 function CentresWindow(title) {
 	var self = Ti.UI.createWindow({
 		title:title,
+		barColor: '#013435'
 	});
 	
 	if (Ti.Platform.name == 'iPhone OS') {
-        backgroundColor:'white'
+        self.backgroundColor = 'white';
     } else {
-        backgroundColor:'black'
+        self.backgroundColor = 'black';
     }
 	
 	if (Ti.Platform.name == 'iPhone OS') {
@@ -28,7 +29,8 @@ function CentresWindow(title) {
 						title: centres[c].nom, 
 						hasChild:true,
 						id: centres[c].id,
-						nom: centres[c].nom
+						nom: centres[c].nom,
+						font:{fontSize: 20, fontFamily: 'Times New Roman'}
 					})
 				);
 			}
