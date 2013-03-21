@@ -1,8 +1,13 @@
 function ChevauxWindow(title) {
 	var self = Ti.UI.createWindow({
-		title:title,
-		backgroundColor:'white'
-	});
+        title:title,
+    });
+    
+    if (Ti.Platform.name == 'iPhone OS') {
+        backgroundColor:'white'
+    } else {
+        backgroundColor:'black'
+    }
 	
 	// create table view data object
 	var data = [
