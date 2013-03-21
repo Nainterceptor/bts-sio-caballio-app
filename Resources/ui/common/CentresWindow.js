@@ -1,11 +1,22 @@
 function CentresWindow(title) {
 	var self = Ti.UI.createWindow({
 		title:title,
-		backgroundColor:'white'
+		barColor: '#013435'
 	});
 	
-
-	var tableview = Ti.UI.createTableView();
+	if (Ti.Platform.name == 'iPhone OS') {
+        self.backgroundColor = 'white';
+    } else {
+        self.backgroundColor = 'black';
+    }
+	
+	if (Ti.Platform.name == 'iPhone OS') {
+		var tableview = Ti.UI.createTableView();
+	} else {
+		var tableview = Ti.UI.createTableView({
+			top : 110
+		});
+	}
 	function getData() {
 	    var xhr = Ti.Network.createHTTPClient();
 	    xhr.open("GET","http://poney.spider4all.fr/ws/centres.json");
@@ -18,7 +29,8 @@ function CentresWindow(title) {
 						title: centres[c].nom, 
 						hasChild:true,
 						id: centres[c].id,
-						nom: centres[c].nom
+						nom: centres[c].nom,
+						font:{fontSize: 20, fontFamily: 'Times New Roman'}
 					})
 				);
 			}
@@ -44,7 +56,7 @@ function CentresWindow(title) {
 		self.rightNavButton = refresh;
 	} else {
 		refresh.top = 5;
-		refresh.title = "Refresh";
+		refresh.title = "Actualiser";
 		refresh.width = 200;
 		self.add(refresh);
 	}
@@ -60,6 +72,7 @@ function CentresWindow(title) {
 			self.containingTab.open(win,{animated:true});
 		}
 	});
+	
 	// add table view to the window
 	self.add(tableview);	
 	return self;

@@ -1,8 +1,12 @@
 function EquipementsWindow(title) {
 	var self = Ti.UI.createWindow({
-		title:title,
-		backgroundColor:'white'
+		title:title
 	});
+    if (Ti.Platform.name == 'iPhone OS') {
+        backgroundColor:'white'
+    } else {
+        backgroundColor:'black'
+    }
 	Ti.App.addEventListener('logout', function(e) {
 		Titanium.App.Properties.removeProperty("token");
 		var loginView = require('ui/common/LoginView');

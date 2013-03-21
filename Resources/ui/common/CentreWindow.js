@@ -2,6 +2,7 @@ function CentreWindow(id, title) {
 	var self = Ti.UI.createWindow({
 		title:title,
 		backgroundColor:'white',
+		barColor: '#013435',
 		orientationModes: [
 			Titanium.UI.PORTRAIT,
 			Titanium.UI.LANDSCAPE_LEFT,
@@ -10,11 +11,6 @@ function CentreWindow(id, title) {
 	});
 	
 	var tools = require('ui/common/tools');
-
-	Ti.Gesture.addEventListener('orientationchange',function(e)	{
-		var orientation = tools.getOrientation(e.orientation);
-		alert(orientation);
-	});
 
 	var webview = Ti.UI.createWebView({url:'ui/common/Centre.html'});
 	var views = [];
