@@ -34,7 +34,6 @@ function ApplicationTabGroup() {
 	equipementsWin.containingTab = equipementsTab;
 	self.addTab(equipementsTab);
 	
-	self.setActiveTab(1);
 	self.model = Ti.Platform.model;
 	
 	return self;

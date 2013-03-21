@@ -1,4 +1,4 @@
-function CentreWindow_infos(centre) {
+function CentreWindow_infos() {
 		var self = Ti.UI.createWebView();
 		Ti.App.addEventListener('pageReady',function(centre) {
 			var html = '<html><head></head>';
@@ -9,7 +9,7 @@ function CentreWindow_infos(centre) {
 			html += '<h1>Autres</h1>';
 			html += '<p>';
 			html += 'Date : ' + centre.date + '<br />';
-			html += 'Gérant : ' + centre.gerant_prenom + ' ' + centre.gerant_nom;
+			html += 'G&eacute;rant : ' + centre.firstname + ' ' + centre.lastname;
 			html += '</p>';
 			html += '</body>';
 			html += '</html>';

@@ -10,12 +10,12 @@ function CentreWindow(id, title) {
 	});
 	
 	var tools = require('ui/common/tools');
-	
+
 	Ti.Gesture.addEventListener('orientationchange',function(e)	{
 		var orientation = tools.getOrientation(e.orientation);
 		alert(orientation);
 	});
-	
+
 	var webview = Ti.UI.createWebView({url:'ui/common/Centre.html'});
 	var views = [];
 	
@@ -45,7 +45,7 @@ function CentreWindow(id, title) {
 		showPagingControl:true,
 		pagingControlHeight:30,
 		maxZoomScale:2.0,
-		currentPage:1
+		currentPage:0
 	});
 	// add table view to the window
 	self.add(scrollView);	
