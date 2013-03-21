@@ -1,9 +1,13 @@
 function CentresWindow(title) {
 	var self = Ti.UI.createWindow({
 		title:title,
-		backgroundColor:'white'
 	});
 	
+	if (Ti.Platform.name == 'iPhone OS') {
+        backgroundColor:'white'
+    } else {
+        backgroundColor:'black'
+    }
 
 	var tableview = Ti.UI.createTableView();
 	function getData() {
@@ -44,7 +48,7 @@ function CentresWindow(title) {
 		self.rightNavButton = refresh;
 	} else {
 		refresh.top = 5;
-		refresh.title = "Refresh";
+		refresh.title = "Actualiser";
 		refresh.width = 200;
 		self.add(refresh);
 	}
