@@ -9,6 +9,7 @@ function LoginView() {
 	var username = Titanium.UI.createLabel({
 		color:'#000',
 		text:'Nom d\'utilisateur',
+		font:{fontSize: 15,fontFamily: 'Times New Roman'},
 		top:10,
 		left:30,
 		width:200,
@@ -19,6 +20,7 @@ function LoginView() {
 	
 	var userField = Titanium.UI.createTextField({
 		hintText:'Entrer le nom d\'utilisateur',
+		font:{fontFamily: 'Times New Roman'},
 		height:35,
 		top:35,
 		left:30,
@@ -34,6 +36,7 @@ function LoginView() {
 	var passwordLabel = Titanium.UI.createLabel({
 		color:'#000',
 		text:'Mot de passe',
+		font:{fontSize: 15,fontFamily: 'Times New Roman'},
 		top:75,
 		left:30,
 		width:200,
@@ -44,6 +47,7 @@ function LoginView() {
 	
 	var passwordField = Titanium.UI.createTextField({
 		hintText:'Entrer le mot de passe',
+		font:{fontFamily: 'Times New Roman'},
 		passwordMask: true,
 		height:35,
 		top:100,
@@ -60,9 +64,37 @@ function LoginView() {
 	var login = Titanium.UI.createButton({
 		title:'Se connecter',
 		top:170,
-		left:30,
-		height:30,
-		width:250
+		left:65,
+		height:45,
+		width:180,
+		backgroundGradient: {
+	        type: 'linear',
+	        startPoint: { x: '0%', x: '0%' },
+        	endPoint: { y: '100%', y: '100%' },
+	        colors: [ '#017464', '#015B4E']
+	   	},
+	   	backgroundImage: 'none',
+		borderRadius: 6,
+		borderColor : 'rgba(0, 0, 0, 0.25)',
+		borderWidth : 1,
+		font:{fontSize:25, fontFamily: 'Times New Roman'},
+		color: '#fff'
+	});
+	login.addEventListener('touchstart', function() {
+		login.setBackgroundGradient({
+			type: 'linear',
+	        startPoint: { x: '100%', x: '100%' },
+        	endPoint: { y: '0%', y: '0%' },
+	        colors: [ '#017464', '#015B4E']
+		});
+	});
+	login.addEventListener('touchend', function() {
+		login.setBackgroundGradient({
+			type: 'linear',
+	        startPoint: { x: '0%', x: '0%' },
+        	endPoint: { y: '100%', y: '100%' },
+	        colors: [ '#017464', '#015B4E']
+		});
 	});
 	login.addEventListener("click", function() {
 		var username = encodeURIComponent(userField.value);
