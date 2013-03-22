@@ -1,5 +1,5 @@
 // Keep a reference to this window so it does not get collected on Android.
-Ti.include('/ui/common/overrideTabs.js');
+Ti.include('/style/overrideTabs.js');
 var messageWin;
 function ApplicationTabGroup() {
 	//create module instance

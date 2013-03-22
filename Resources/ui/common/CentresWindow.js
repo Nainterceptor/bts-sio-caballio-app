@@ -3,7 +3,13 @@ function CentresWindow(title) {
 		title:title,
 		barColor: '#013435'
 	});
-	
+	function formatDate()
+	{
+		var date = new Date();
+		var datestr = date.getMonth()+'/'+date.getDate()+'/'+date.getFullYear();
+			datestr+=' '+date.getHours()+':'+date.getMinutes();
+		return datestr;
+	}
 	if (Ti.Platform.name == 'iPhone OS') {
         self.backgroundColor = 'white';
     } else {
@@ -35,31 +41,18 @@ function CentresWindow(title) {
 				);
 			}
 			tableview.data = data;
+			self.title = title;
 	     }; 
 	    xhr.onerror = function() {
-		  alert('Erreur :' + xhr.status);
+		  alert('Erreur de communication :' + xhr.status);
+		  self.title = title;
 		};
 	    xhr.send();		
 	}
-
-	var refresh = Ti.UI.createButton();
-	if (Ti.Platform.osname !== 'mobileweb'){
-		refresh.systemButton = Ti.UI.iPhone.SystemButton.REFRESH;
-	}
-	refresh.addEventListener('click', function() {
-		setTimeout(function(){
-			getData();
-		}, 1000);
+	tableview.addEventListener('dragEnd', function() {
+		self.title += '...';
+		getData();
 	});
-	
-	if (Ti.Platform.name == 'iPhone OS') {
-		self.rightNavButton = refresh;
-	} else {
-		refresh.top = 5;
-		refresh.title = "Actualiser";
-		refresh.width = 200;
-		self.add(refresh);
-	}
 	getData();
 	// create table view event listener
 	tableview.addEventListener('click', function(e)

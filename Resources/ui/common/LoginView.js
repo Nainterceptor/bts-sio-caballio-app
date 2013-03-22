@@ -67,25 +67,31 @@ function LoginView() {
 	login.addEventListener("click", function() {
 		var username = encodeURIComponent(userField.value);
 		var password = encodeURIComponent(passwordField.value);
-		/**
-		 * XHR
-		 */
-	    var xhr = Ti.Network.createHTTPClient();
-	    xhr.open("GET","http://poney.spider4all.fr/ws/login/" + password + '/' + username + ".json");
-	    xhr.onload = function() {
-	    	reponse = JSON.parse(xhr.responseText)
-	    	if(reponse.login == true) {
-	    		Titanium.App.Properties.setString("token", reponse.token)
-	    		Ti.App.fireEvent('login');
-	    	}
-	    }
-	    xhr.onerror = function() {
-		  alert('Erreur :' + xhr.status);    
-		};
-	    xhr.send();
-	    /**
-	     * FIN XHR
-	     */
+		if(username == '' || password == '') {
+			alert('Le nom d\'utilisateur et le mot de passe sont nécessaires');
+		} else {
+			/**
+			 * XHR
+			 */
+		    var xhr = Ti.Network.createHTTPClient();
+		    xhr.open("GET","http://poney.spider4all.fr/ws/login/" + password + '/' + username + ".json");
+		    xhr.onload = function() {
+		    	reponse = JSON.parse(xhr.responseText)
+		    	if(reponse.login == true) {
+		    		Titanium.App.Properties.setString("token", reponse.token)
+		    		Ti.App.fireEvent('login');
+		    	} else {
+		    		alert('Mot de passe ou nom d\'utilisateur incorrect');
+		    	}
+		    }
+		    xhr.onerror = function() {
+			  alert('Erreur :' + xhr.status);    
+			};
+		    xhr.send();
+		    /**
+		     * FIN XHR
+		     */
+	   }
 	});
 	self.add(login);
 	return self;

@@ -1,13 +1,24 @@
 function EquipementsWindow(title) {
 	var self = Ti.UI.createWindow({
-		title:title
+		title:title,
+		barColor: '#013435'
 	});
     if (Ti.Platform.name == 'iPhone OS') {
         backgroundColor:'white'
     } else {
         backgroundColor:'black'
     }
+	//
+	// NAVBAR
+	//
+	var logout = Titanium.UI.createButton({
+		title: 'Déconnexion',
+		backgroundColor:'#336699'
+	
+	});
+	var emptyView = Titanium.UI.createView({});
 	Ti.App.addEventListener('logout', function(e) {
+		self.setRightNavButton(emptyView);
 		Titanium.App.Properties.removeProperty("token");
 		var loginView = require('ui/common/LoginView');
 		var login = new loginView();
@@ -15,6 +26,7 @@ function EquipementsWindow(title) {
 	});
 
 	Ti.App.addEventListener('login', function(e) {
+			self.setRightNavButton(logout);
 			var tableview = Ti.UI.createTableView();	
 			function getData() {
 			    var xhr = Ti.Network.createHTTPClient();
@@ -28,46 +40,38 @@ function EquipementsWindow(title) {
 								title: equipements[e].libelle, 
 								hasChild:true,
 								id: equipements[e].id,
-								nom: equipements[e].libelle
+								libelle: equipements[e].libelle
 							})
 						);
 					}
 					tableview.data = data;
+					self.title = title;
 			     }; 
 			    xhr.onerror = function() {
 				  alert('Erreur :' + xhr.status);
+				  self.title = title;
 				};
 			    xhr.send();		
 			}
-			var refresh = Ti.UI.createButton();
-			if (Ti.Platform.osname !== 'mobileweb'){
-				refresh.systemButton = Ti.UI.iPhone.SystemButton.REFRESH;
-			}
-			refresh.addEventListener('click', function() {
-				setTimeout(function(){
-					getData();
-				}, 1000);
+			tableview.addEventListener('dragEnd', function() {
+				self.title += '...';
+				getData();
 			});
-			
-			if (Ti.Platform.name == 'iPhone OS') {
-				self.rightNavButton = refresh;
-			} else {
-				refresh.top = 5;
-				refresh.title = "Refresh";
-				refresh.width = 200;
-				self.add(refresh);
-			}
 			getData();
 			// create table view event listener
 			tableview.addEventListener('click', function(e)
 			{
 				if (e.rowData.id)
 				{
-					var centre = require('ui/common/EquipementWindow'),
-					win = new centre(e.rowData.id, e.rowData.nom);
+					var equipement = require('ui/common/EquipementWindow'),
+					win = new equipement(e.rowData.id, e.rowData.libelle);
 		
 					self.containingTab.open(win,{animated:true});
 				}
+			});
+
+			logout.addEventListener('click', function(e) { 
+				Ti.App.fireEvent('logout');
 			});
 			// add table view to the window
 			self.add(tableview);	
