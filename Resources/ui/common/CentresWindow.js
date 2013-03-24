@@ -15,14 +15,9 @@ function CentresWindow(title) {
     } else {
         self.backgroundColor = 'black';
     }
-	
-	if (Ti.Platform.name == 'iPhone OS') {
-		var tableview = Ti.UI.createTableView();
-	} else {
-		var tableview = Ti.UI.createTableView({
-			top : 110
-		});
-	}
+    
+	var tableview = Ti.UI.createTableView();
+
 	function getData() {
 	    var xhr = Ti.Network.createHTTPClient();
 	    xhr.open("GET","http://poney.spider4all.fr/ws/centres.json");

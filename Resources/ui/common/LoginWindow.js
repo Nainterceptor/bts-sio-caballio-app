@@ -1,7 +1,18 @@
 function LoginView() {
-	var self = Ti.UI.createView({
+	var self = Ti.UI.createWindow({
 		title: 'Se connecter',
-		backgroundColor: 'white'
+		backgroundColor: 'white',
+		barColor: '#013435',
+		orientationModes: [
+			Titanium.UI.PORTRAIT,
+			Titanium.UI.LANDSCAPE_LEFT,
+			Titanium.UI.LANDSCAPE_RIGHT
+		]
+	});
+	var view = Ti.UI.createView({
+		title: 'Se connecter',
+		backgroundColor: 'white',
+		layout:'vertical'
 	});
 	//
 	//  CREATE FIELD ONE
@@ -9,26 +20,18 @@ function LoginView() {
 	var username = Titanium.UI.createLabel({
 		color:'#000',
 		text:'Nom d\'utilisateur',
-		font:{fontSize: 15,fontFamily: 'Times New Roman'},
-		top:10,
-		left:30,
-		width:200,
-		height:'auto'
+		top: 10
 	});
 	
-	self.add(username);
+	view.add(username);
 	
 	var userField = Titanium.UI.createTextField({
 		hintText:'Entrer le nom d\'utilisateur',
-		font:{fontFamily: 'Times New Roman'},
-		height:35,
-		top:35,
-		left:30,
-		width:250,
+		top: 10,
 		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
 	
-	self.add(userField);
+	view.add(userField);
 	
 	//
 	//  CREATE FIELD TWO
@@ -36,37 +39,26 @@ function LoginView() {
 	var passwordLabel = Titanium.UI.createLabel({
 		color:'#000',
 		text:'Mot de passe',
-		font:{fontSize: 15,fontFamily: 'Times New Roman'},
-		top:75,
-		left:30,
-		width:200,
-		height:'auto'
+		top: 10
 	});
 	
-	self.add(passwordLabel);
+	view.add(passwordLabel);
 	
 	var passwordField = Titanium.UI.createTextField({
-		hintText:'Entrer le mot de passe',
-		font:{fontFamily: 'Times New Roman'},
+		hintText: 'Entrer le mot de passe',
 		passwordMask: true,
-		height:35,
-		top:100,
-		left:30,
-		width:250,
+		top: 10,
 		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED
 	});
 	
-	self.add(passwordField);
+	view.add(passwordField);
 	
 	//
 	// CREATE BUTTON
 	//
 	var login = Titanium.UI.createButton({
 		title:'Se connecter',
-		top:170,
-		left:65,
-		height:45,
-		width:180,
+		top: 10,
 		backgroundGradient: {
 	        type: 'linear',
 	        startPoint: { x: '0%', x: '0%' },
@@ -110,7 +102,7 @@ function LoginView() {
 		    xhr.onload = function() {
 		    	reponse = JSON.parse(xhr.responseText)
 		    	if(reponse.login == true) {
-		    		Titanium.App.Properties.setString("token", reponse.token)
+		    		Titanium.App.Properties.setString("token", reponse.token);
 		    		Ti.App.fireEvent('login');
 		    	} else {
 		    		alert('Mot de passe ou nom d\'utilisateur incorrect');
@@ -125,7 +117,8 @@ function LoginView() {
 		     */
 	   }
 	});
-	self.add(login);
+	view.add(login);
+	self.add(view);
 	return self;
 };
 

@@ -1,7 +1,6 @@
 function EquipementWindow(id, name) {
 	var self = Ti.UI.createWindow({
 		title: name,
-		backgroundColor: 'white',
 		barColor: '#013435',
 		orientationModes: [
 			Titanium.UI.PORTRAIT,
@@ -9,11 +8,16 @@ function EquipementWindow(id, name) {
 			Titanium.UI.LANDSCAPE_RIGHT
 		]
 	});
-    if (Ti.Platform.name == 'iPhone OS') {
+	var view = Ti.UI.createView({
+		width:'100%',
+		height:'100%',
+		layout:'vertical',
+		backgroundColor:'white'
+	});
+    if (Ti.Platform.name == 'iPhone OS')
         backgroundColor:'white'
-    } else {
+    else
         backgroundColor:'black'
-    }
 	//
 	// NAVBAR
 	//
@@ -22,79 +26,72 @@ function EquipementWindow(id, name) {
 		backgroundColor:'#336699'
 	
 	});
-	var emptyView = Titanium.UI.createView({});
+	logout.addEventListener('click', function(e) { 
+		Ti.App.fireEvent('logout');
+	});
+	var emptyView = Titanium.UI.createView();
 	Ti.App.addEventListener('logout', function(e) {
 		self.setRightNavButton(emptyView);
 		Titanium.App.Properties.removeProperty("token");
-		var loginView = require('ui/common/LoginView');
+		var loginView = require('ui/common/LoginWindow');
 		var login = new loginView();
 		self.add(login);
 	});
+	var infoTitle = Titanium.UI.createLabel({
+		top:10,
+		left:10,
+		text:'Informations',
+		font:{fontSize:30, fontFamily: 'Times New Roman'},
+		color: '#333333'
+	});
+	view.add(infoTitle);
+	
+	var libelle = Titanium.UI.createLabel({
+		top: 5,
+		left:10,
+		font:{fontFamily: 'Times New Roman'},
+		color: '#333333'
+	})
+	view.add(libelle);
 
+	var dateAjout = Titanium.UI.createLabel({
+		top: 5,
+		left:10,
+		font:{fontFamily: 'Times New Roman'},
+		color: '#333333'
+	})
+	view.add(dateAjout);
+    
+	var centre = Titanium.UI.createLabel({
+		top: 5,
+		left:10,
+		font:{fontFamily: 'Times New Roman'},
+		color: '#333333'
+	})
+	view.add(centre);
+
+	var gerant = Titanium.UI.createLabel({
+		top: 5,
+		left:10,
+		font:{fontFamily: 'Times New Roman'},
+		color: '#333333'
+	})
+	view.add(gerant);
 	Ti.App.addEventListener('login', function(e) {
-		self.setRightNavButton(logout);
+		if (Ti.Platform.name == 'iPhone OS')
+			self.setRightNavButton(logout);
 		Ti.App.addEventListener('pageReady',function(equipement) {
-			var view = Ti.UI.createView({
-				width:'100%',
-				height:'100%',
-				layout:'vertical'
-			});
-			var infoTitle = Titanium.UI.createLabel({
-				top:10,
-					left:10,
-				text:'Informations',
-				font:{fontSize:30, fontFamily: 'Times New Roman'},
-				color: '#333333'
-			});
-			view.add(infoTitle);
-			
-			var libelle = Titanium.UI.createLabel({
-				top: 5,
-					left:10,
-				text: 'Libellé : ' + equipement.libelle,
-				font:{fontFamily: 'Times New Roman'},
-				color: '#333333'
-			})
-			view.add(libelle);
-
-			var dateAjout = Titanium.UI.createLabel({
-				top: 5,
-					left:10,
-				text: 'Date d\'ajout : ' + equipement.dateAjout,
-				font:{fontFamily: 'Times New Roman'},
-				color: '#333333'
-			})
-			view.add(dateAjout);
-
-			var centre = Titanium.UI.createLabel({
-				top: 5,
-					left:10,
-				text: 'Centre : ' + equipement.centre,
-				font:{fontFamily: 'Times New Roman'},
-				color: '#333333'
-			})
-			view.add(centre);
-			
-			var gerantNom;
-			if(equipement.firstname == null && equipement.lastname == null) {
-				gerantNom = 'Non renseigné';
-			} else if(equipement.firstname == null && equipement.lastname != null) {
-				gerantNom = equipement.lastname;
-			} else if(equipement.lastname == null && equipement.firstname != null) {
-				gerantNom = equipement.firstname;
-			} else {
-				gerantNom = equipement.firstname + ' ' + equipement.lastname;
-			}
-
-			var gerant = Titanium.UI.createLabel({
-				top: 5,
-					left:10,
-				text: 'Gérant : ' + gerantNom,
-				font:{fontFamily: 'Times New Roman'},
-				color: '#333333'
-			})
-			view.add(gerant);
-			self.add(view);	
+			libelle.text = 'Libellé : ' + equipement.libelle
+			dateAjout.text = 'Date d\'ajout : ' + equipement.dateAjout;
+			centre.text = 'Centre : ' + equipement.centre;
+			if(equipement.firstname == null && equipement.lastname == null)
+				gerant.text = 'Gérant : Non renseigné';
+			else if(equipement.firstname == null && equipement.lastname != null)
+				gerant.text = 'Gérant : ' + equipement.lastname;
+			else if(equipement.lastname == null && equipement.firstname != null)
+				gerant.text = 'Gérant : ' + equipement.firstname;
+			else
+				gerant.text = 'Gérant : ' + equipement.firstname + ' ' + equipement.lastname;
 		});
 		/**
 		 * XHR
@@ -117,17 +114,13 @@ function EquipementWindow(id, name) {
 	    /**
 	     * FIN XHR
 	     */
-
-		logout.addEventListener('click', function(e) { 
-			Ti.App.fireEvent('logout');
-		});
 		// add table view to the window
 	});
-	if(Titanium.App.Properties.getString("token", false) == false) {
+	if(Titanium.App.Properties.getString("token", false) == false)
 		Ti.App.fireEvent('logout');
-	} else {
+	else
 		Ti.App.fireEvent('login');
-	}
+	self.add(view);	
 	return self;
 };
 

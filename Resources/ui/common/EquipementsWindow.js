@@ -18,15 +18,17 @@ function EquipementsWindow(title) {
 	});
 	var emptyView = Titanium.UI.createView({});
 	Ti.App.addEventListener('logout', function(e) {
-		self.setRightNavButton(emptyView);
+		if (Ti.Platform.name == 'iPhone OS')
+			self.setRightNavButton(emptyView);
 		Titanium.App.Properties.removeProperty("token");
-		var loginView = require('ui/common/LoginView');
+		var loginView = require('ui/common/LoginWindow');
 		var login = new loginView();
 		self.add(login);
 	});
 
 	Ti.App.addEventListener('login', function(e) {
-			self.setRightNavButton(logout);
+			if (Ti.Platform.name == 'iPhone OS')
+				self.setRightNavButton(logout);
 			var tableview = Ti.UI.createTableView();	
 			function getData() {
 			    var xhr = Ti.Network.createHTTPClient();
@@ -40,7 +42,8 @@ function EquipementsWindow(title) {
 								title: equipements[e].libelle, 
 								hasChild:true,
 								id: equipements[e].id,
-								libelle: equipements[e].libelle
+								libelle: equipements[e].libelle,
+								font:{fontSize: 20, fontFamily: 'Times New Roman'}
 							})
 						);
 					}
