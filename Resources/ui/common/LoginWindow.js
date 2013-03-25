@@ -102,6 +102,10 @@ function LoginView() {
 		    xhr.onload = function() {
 		    	reponse = JSON.parse(xhr.responseText)
 		    	if(reponse.login == true) {
+		    		if (Ti.Platform.name == 'android') {
+						self.remove(view);
+						self.backgroundColor = null;
+					}
 		    		Titanium.App.Properties.setString("token", reponse.token);
 		    		Ti.App.fireEvent('login');
 		    	} else {
