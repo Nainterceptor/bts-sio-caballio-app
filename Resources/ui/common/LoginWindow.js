@@ -1,5 +1,5 @@
 function LoginView() {
-	var self = Ti.UI.createWindow({
+	var self = Ti.UI.createView({
 		title: 'Se connecter',
 		backgroundColor: 'white',
 		barColor: '#013435',

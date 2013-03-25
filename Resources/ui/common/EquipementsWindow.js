@@ -14,7 +14,6 @@ function EquipementsWindow(title) {
 	var logout = Titanium.UI.createButton({
 		title: 'Déconnexion',
 		backgroundColor:'#336699'
-	
 	});
 	var emptyView = Titanium.UI.createView({});
 	Ti.App.addEventListener('logout', function(e) {
@@ -29,6 +28,10 @@ function EquipementsWindow(title) {
 	Ti.App.addEventListener('login', function(e) {
 			if (Ti.Platform.name == 'iPhone OS')
 				self.setRightNavButton(logout);
+			if (Ti.Platform.name == 'android') {
+				self.add(logout);
+				logout.top = 5;
+			}
 			var tableview = Ti.UI.createTableView();	
 			function getData() {
 			    var xhr = Ti.Network.createHTTPClient();
@@ -77,6 +80,9 @@ function EquipementsWindow(title) {
 				Ti.App.fireEvent('logout');
 			});
 			// add table view to the window
+			if (Ti.Platform.name == 'android') {
+				tableview.top = 40;
+			}
 			self.add(tableview);	
 	});
 	if(Titanium.App.Properties.getString("token", false) == false) {
