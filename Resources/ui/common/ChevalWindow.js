@@ -1,4 +1,4 @@
-function EquipementWindow(id, name) {
+function ChevalWindow(id, name) {
 	var self = Ti.UI.createWindow({
 		title: name,
 		barColor: '#013435',
@@ -54,6 +54,14 @@ function EquipementWindow(id, name) {
 		color: '#333333'
 	})
 	view.add(libelle);
+	
+	var nourriture = Titanium.UI.createLabel({
+		top: 5,
+		left:10,
+		font:{fontFamily: 'Times New Roman'},
+		color: '#333333'
+	})
+	view.add(nourriture);
 
 	var dateAjout = Titanium.UI.createLabel({
 		top: 5,
@@ -81,18 +89,19 @@ function EquipementWindow(id, name) {
 	Ti.App.addEventListener('login', function(e) {
 		if (Ti.Platform.name == 'iPhone OS')
 			self.setRightNavButton(logout);
-		view.addEventListener('pageReady',function(equipement) {
-			libelle.text = 'Libellé : ' + equipement.libelle;
-			dateAjout.text = 'Date d\'ajout : ' + equipement.dateAjout;
-			centre.text = 'Centre : ' + equipement.centre;
-			if(equipement.firstname == null && equipement.lastname == null)
+		view.addEventListener('pageReady',function(cheval) {
+			libelle.text = 'Nom : ' + cheval.nom;
+			nourriture.text = 'Nourriture : ' + cheval.quantite + 'kg/' + cheval.nourriture;
+			dateAjout.text = 'Date d\'ajout : ' + cheval.nom;
+			centre.text = 'Centre : ' + cheval.centre;
+			if(cheval.prenom_proprio == null && cheval.nom_proprio == null)
 				gerant.text = 'Gérant : Non renseigné';
-			else if(equipement.firstname == null && equipement.lastname != null)
-				gerant.text = 'Gérant : ' + equipement.lastname;
-			else if(equipement.lastname == null && equipement.firstname != null)
-				gerant.text = 'Gérant : ' + equipement.firstname;
+			else if(cheval.prenom_proprio == null && cheval.nom_proprio != null)
+				gerant.text = 'Gérant : ' + cheval.nom_proprio;
+			else if(cheval.nom_proprio == null && cheval.prenom_proprio != null)
+				gerant.text = 'Gérant : ' + cheval.prenom_proprio;
 			else
-				gerant.text = 'Gérant : ' + equipement.firstname + ' ' + equipement.lastname;
+				gerant.text = 'Gérant : ' + cheval.prenom_proprio + ' ' + cheval.nom_proprio;
 		});
 		/**
 		 * XHR
@@ -100,13 +109,13 @@ function EquipementWindow(id, name) {
 	    var xhr = Ti.Network.createHTTPClient();
 	    xhr.open("GET","http://poney.spider4all.fr/ws/" 
 	    			   + encodeURIComponent(Titanium.App.Properties.getString("token")) 
-	    			   + "/equipement/" 
+	    			   + "/cheval/" 
 	    			   + encodeURIComponent(id) 
 	    			   + ".json"
 	    		);
 	    xhr.onload = function() {
-	    	equipement = JSON.parse(xhr.responseText)
-	    	view.fireEvent('pageReady', equipement);
+	    	cheval = JSON.parse(xhr.responseText)
+	    	view.fireEvent('pageReady', cheval);
 	    }
 	    xhr.onerror = function() {
 		  alert('Erreur :' + xhr.status);    
@@ -125,4 +134,4 @@ function EquipementWindow(id, name) {
 	return self;
 };
 
-module.exports = EquipementWindow;
+module.exports = ChevalWindow;
