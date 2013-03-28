@@ -90,11 +90,13 @@ function EquipementsWindow(title) {
 		}
 		self.add(tableview);	
 	});
-	if(Titanium.App.Properties.getString("token", false) == false) {
-		Ti.App.fireEvent('logout');
-	} else {
-		Ti.App.fireEvent('login');
-	}
+	self.addEventListener('focus', function() {
+		if(Titanium.App.Properties.getString("token", false) == false) {
+			Ti.App.fireEvent('logout');
+		} else {
+			Ti.App.fireEvent('login');
+		}
+	});
 	return self;
 };
 

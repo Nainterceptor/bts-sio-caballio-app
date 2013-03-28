@@ -131,10 +131,13 @@ function ChevalWindow(id, name) {
 	     */
 		// add table view to the window
 	});
-	if(Titanium.App.Properties.getString("token", false) == false)
-		Ti.App.fireEvent('logout');
-	else
-		Ti.App.fireEvent('login');
+	self.addEventListener('focus', function() {
+		if(Titanium.App.Properties.getString("token", false) == false) {
+			Ti.App.fireEvent('logout');
+		} else {
+			Ti.App.fireEvent('login');
+		}
+	});
 	self.add(view);	
 	return self;
 };

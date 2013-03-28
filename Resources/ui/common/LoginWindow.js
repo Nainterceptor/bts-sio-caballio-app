@@ -4,7 +4,6 @@ function LoginView() {
 		backgroundColor: 'white',
 		layout:'vertical'
 	});
-	view.hide();
 	//
 	//  CREATE FIELD ONE
 	//
@@ -108,6 +107,7 @@ function LoginView() {
 		     */
 	   }
 	});
+	
 	view.add(login);
 	return view;
 };
