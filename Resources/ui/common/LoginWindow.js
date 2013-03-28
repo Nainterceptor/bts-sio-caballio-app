@@ -1,19 +1,10 @@
 function LoginView() {
-	var self = Ti.UI.createView({
-		title: 'Se connecter',
-		backgroundColor: 'white',
-		barColor: '#013435',
-		orientationModes: [
-			Titanium.UI.PORTRAIT,
-			Titanium.UI.LANDSCAPE_LEFT,
-			Titanium.UI.LANDSCAPE_RIGHT
-		]
-	});
 	var view = Ti.UI.createView({
 		title: 'Se connecter',
 		backgroundColor: 'white',
 		layout:'vertical'
 	});
+	view.hide();
 	//
 	//  CREATE FIELD ONE
 	//
@@ -102,10 +93,6 @@ function LoginView() {
 		    xhr.onload = function() {
 		    	reponse = JSON.parse(xhr.responseText)
 		    	if(reponse.login == true) {
-		    		if (Ti.Platform.name == 'android') {
-						self.remove(view);
-						self.backgroundColor = null;
-					}
 		    		Titanium.App.Properties.setString("token", reponse.token);
 		    		Ti.App.fireEvent('login');
 		    	} else {
@@ -122,8 +109,7 @@ function LoginView() {
 	   }
 	});
 	view.add(login);
-	self.add(view);
-	return self;
+	return view;
 };
 
 module.exports = LoginView;

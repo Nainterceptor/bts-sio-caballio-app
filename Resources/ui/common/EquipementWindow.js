@@ -14,7 +14,8 @@ function EquipementWindow(id, name) {
 		layout:'vertical',
 		backgroundColor:'white'
 	});
-
+	var loginView = require('ui/common/LoginWindow');
+	var login = new loginView();
     if (Ti.Platform.name == 'iPhone OS')
         backgroundColor:'white'
     else
@@ -32,11 +33,13 @@ function EquipementWindow(id, name) {
 	});
 	var emptyView = Titanium.UI.createView();
 	Ti.App.addEventListener('logout', function(e) {
-		self.setRightNavButton(emptyView);
+		if (Ti.Platform.name == 'iPhone OS')
+			self.setRightNavButton(emptyView);
 		Titanium.App.Properties.removeProperty("token");
-		var loginView = require('ui/common/LoginWindow');
-		var login = new loginView();
 		self.add(login);
+		login.show();
+		view.hide();
+		self.remove(logout);
 	});
 	var infoTitle = Titanium.UI.createLabel({
 		top:10,
@@ -79,6 +82,8 @@ function EquipementWindow(id, name) {
 	})
 	view.add(gerant);
 	Ti.App.addEventListener('login', function(e) {
+		view.show();
+		login.hide();
 		if (Ti.Platform.name == 'iPhone OS')
 			self.setRightNavButton(logout);
 		view.addEventListener('pageReady',function(equipement) {

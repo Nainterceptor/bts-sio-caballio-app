@@ -3,7 +3,14 @@ function EquipementsWindow(title) {
 		title:title,
 		barColor: '#013435'
 	});
+	var tableview = Ti.UI.createTableView();
 	var equipement = require('ui/common/EquipementWindow');
+	var loginView = require('ui/common/LoginWindow');
+	var login = new loginView();
+	var logout = Titanium.UI.createButton({
+		title: 'Déconnexion',
+		backgroundColor:'#336699'
+	});
     if (Ti.Platform.name == 'iPhone OS') {
         backgroundColor:'white'
     } else {
@@ -18,16 +25,25 @@ function EquipementsWindow(title) {
 		if (Ti.Platform.name == 'iPhone OS')
 			self.setRightNavButton(emptyView);
 		Titanium.App.Properties.removeProperty("token");
-		var loginView = require('ui/common/LoginWindow');
-		var login = new loginView();
 		self.add(login);
+		login.show();
+		tableview.hide();
+		self.remove(logout);
 	});
-
+	// create table view event listener
+	tableview.addEventListener('click', function(e)
+	{
+		if (e.rowData.id)
+		{
+			var equipement = require('ui/common/EquipementWindow');
+			var win = new equipement(e.rowData.id, e.rowData.libelle);
+			Ti.API.log('foo');
+			self.containingTab.open(win,{animated:true});
+		}
+	});
 	Ti.App.addEventListener('login', function(e) {
-		var logout = Titanium.UI.createButton({
-			title: 'Déconnexion',
-			backgroundColor:'#336699'
-		});
+		tableview.show();
+		login.hide();
 		logout.addEventListener('click', function(e) { 
 			Ti.App.fireEvent('logout');
 		});
@@ -37,7 +53,6 @@ function EquipementsWindow(title) {
 			self.add(logout);
 			logout.top = 5;
 		}
-		var tableview = Ti.UI.createTableView();	
 		function getData() {
 		    var xhr = Ti.Network.createHTTPClient();
 		    xhr.open("GET","http://poney.spider4all.fr/ws/" + encodeURIComponent(Titanium.App.Properties.getString("token")) + "/equipements.json");
@@ -69,19 +84,6 @@ function EquipementsWindow(title) {
 			getData();
 		});
 		getData();
-		// create table view event listener
-		tableview.addEventListener('click', function(e)
-		{
-			if (e.rowData.id)
-			{
-				var equipement = require('ui/common/EquipementWindow');
-				var win = new equipement(e.rowData.id, e.rowData.libelle);
-	
-				self.containingTab.open(win,{animated:true});
-			}
-		});
-
-
 		// add table view to the window
 		if (Ti.Platform.name == 'android') {
 			tableview.top = 40;
