@@ -20,7 +20,7 @@ function CentresWindow(title) {
 
 	function getData() {
 	    var xhr = Ti.Network.createHTTPClient();
-	    xhr.open("GET","http://poney.spider4all.fr/ws/centres.json");
+	    xhr.open("GET","http://caballio.spider4all.fr/ws/centres.json");
 	    xhr.onload = function() {
 	    	var data = [];
 	    	var centres = JSON.parse(xhr.responseText);

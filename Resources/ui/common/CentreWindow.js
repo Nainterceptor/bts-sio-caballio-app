@@ -19,7 +19,7 @@ function CentreWindow(id, title) {
 	 * XHR
 	 */
     var xhr = Ti.Network.createHTTPClient();
-    xhr.open("GET","http://poney.spider4all.fr/ws/centre/" + id + ".json");
+    xhr.open("GET","http://caballio.spider4all.fr/ws/centre/" + id + ".json");
     xhr.onload = function() {
     	centre = JSON.parse(xhr.responseText)
     	Ti.App.fireEvent('pageReady',centre);

@@ -88,7 +88,7 @@ function LoginView() {
 			 * XHR
 			 */
 		    var xhr = Ti.Network.createHTTPClient();
-		    xhr.open("GET","http://poney.spider4all.fr/ws/login/" + password + '/' + username + ".json");
+		    xhr.open("GET","http://caballio.spider4all.fr/ws/login/" + password + '/' + username + ".json");
 		    xhr.onload = function() {
 		    	reponse = JSON.parse(xhr.responseText)
 		    	if(reponse.login == true) {

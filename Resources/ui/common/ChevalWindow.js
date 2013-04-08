@@ -112,7 +112,7 @@ function ChevalWindow(id, name) {
 		 * XHR
 		 */
 	    var xhr = Ti.Network.createHTTPClient();
-	    xhr.open("GET","http://poney.spider4all.fr/ws/" 
+	    xhr.open("GET","http://caballio.spider4all.fr/ws/" 
 	    			   + encodeURIComponent(Titanium.App.Properties.getString("token")) 
 	    			   + "/cheval/" 
 	    			   + encodeURIComponent(id) 

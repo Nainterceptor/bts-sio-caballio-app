@@ -55,7 +55,7 @@ function EquipementsWindow(title) {
 		}
 		function getData() {
 		    var xhr = Ti.Network.createHTTPClient();
-		    xhr.open("GET","http://poney.spider4all.fr/ws/" + encodeURIComponent(Titanium.App.Properties.getString("token")) + "/equipements.json");
+		    xhr.open("GET","http://caballio.spider4all.fr/ws/" + encodeURIComponent(Titanium.App.Properties.getString("token")) + "/equipements.json");
 		    xhr.onload = function() {
 		    	var data = [];
 		    	var equipements = JSON.parse(xhr.responseText);
