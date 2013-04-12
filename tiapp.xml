@@ -14,13 +14,13 @@
         <target device="blackberry">false</target>
     </deployment-targets>
     <sdk-version>3.0.2.GA</sdk-version>
-    <id>com.poney.ppe</id>
-    <name>poney-app</name>
+    <id>com.caballio</id>
+    <name>Caballio</name>
     <version>1.0</version>
-    <publisher>nainterceptor</publisher>
-    <url>http://poney.spider4all.fr/</url>
-    <description>not specified</description>
-    <copyright>2013 by nainterceptor</copyright>
+    <publisher>PITP</publisher>
+    <url>http://caballio.spider4all.fr/</url>
+    <description>Cette application est l'application mobile du service PITP</description>
+    <copyright>2013 by PITP</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>false</prerendered-icon>
